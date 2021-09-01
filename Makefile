@@ -67,6 +67,9 @@ ifdef CONFIG_CLANG
   HOST_CC=clang
   CC=$(CROSS_PREFIX)clang
   CFLAGS=-g -Wall -MMD -MF $(OBJDIR)/$(@F).d
+  ifdef CONFIG_WASM
+  	CFLAGS += -D_WASI_EMULATED_SIGNAL -lwasi-emulated-signal
+	endif
   CFLAGS += -Wextra
   CFLAGS += -Wno-sign-compare
   CFLAGS += -Wno-missing-field-initializers
@@ -226,6 +229,9 @@ else
 LTOEXT=
 endif
 
+libquickjs.wasm: wasm.c $(QJS_LIB_OBJS)
+	$(CC) $(LDFLAGS) -Wl,--export-all $(LDEXPORT) -o $@ $^ $(LIBS)
+
 libquickjs$(LTOEXT).a: $(QJS_LIB_OBJS)
 	$(AR) rcs $@ $^
 
@@ -296,6 +302,7 @@ clean:
 	rm -f examples/*.so tests/*.so
 	rm -rf $(OBJDIR)/ *.dSYM/ qjs-debug
 	rm -rf run-test262-debug run-test262-32
+	rm -rf libquickjs.wasm
 
 install: all
 	mkdir -p "$(DESTDIR)$(prefix)/bin"

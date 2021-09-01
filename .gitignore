@@ -1,0 +1,6 @@
+.obj
+a.out
+cutils.h.gch
+libquickjs.wasm
+quickjs-libc.h.gch
+quickjs.h.gch

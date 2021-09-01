@@ -29,7 +29,7 @@
 #include <assert.h>
 #include <unistd.h>
 #include <errno.h>
-#if !defined(_WIN32)
+#if !defined(_WIN32) && !defined(__wasi__)
 #include <sys/wait.h>
 #endif
 
@@ -616,7 +616,8 @@ int main(int argc, char **argv)
         /* XXX: find a /tmp directory ? */
         snprintf(cfilename, sizeof(cfilename), "out%d.c", getpid());
 #else
-        snprintf(cfilename, sizeof(cfilename), "/tmp/out%d.c", getpid());
+        // snprintf(cfilename, sizeof(cfilename), "/tmp/out%d.c", getpid());
+        snprintf(cfilename, sizeof(cfilename), "/tmp/out%d.c", 0);
 #endif
     } else {
         pstrcpy(cfilename, sizeof(cfilename), out_filename);
