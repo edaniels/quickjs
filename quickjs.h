@@ -602,10 +602,7 @@ static inline JS_BOOL JS_IsUndefined(JSValueConst v)
     return JS_VALUE_GET_TAG(v) == JS_TAG_UNDEFINED;
 }
 
-static inline JS_BOOL JS_IsException(JSValueConst v)
-{
-    return js_unlikely(JS_VALUE_GET_TAG(v) == JS_TAG_EXCEPTION);
-}
+inline JS_BOOL JS_IsException(JSValueConst v);
 
 static inline JS_BOOL JS_IsUninitialized(JSValueConst v)
 {
@@ -640,15 +637,7 @@ JSValue __js_printf_like(2, 3) JS_ThrowInternalError(JSContext *ctx, const char 
 JSValue JS_ThrowOutOfMemory(JSContext *ctx);
 
 void __JS_FreeValue(JSContext *ctx, JSValue v);
-static inline void JS_FreeValue(JSContext *ctx, JSValue v)
-{
-    if (JS_VALUE_HAS_REF_COUNT(v)) {
-        JSRefCountHeader *p = (JSRefCountHeader *)JS_VALUE_GET_PTR(v);
-        if (--p->ref_count <= 0) {
-            __JS_FreeValue(ctx, v);
-        }
-    }
-}
+void JS_FreeValue(JSContext *ctx, JSValue v);
 void __JS_FreeValueRT(JSRuntime *rt, JSValue v);
 static inline void JS_FreeValueRT(JSRuntime *rt, JSValue v)
 {
@@ -660,14 +649,7 @@ static inline void JS_FreeValueRT(JSRuntime *rt, JSValue v)
     }
 }
 
-static inline JSValue JS_DupValue(JSContext *ctx, JSValueConst v)
-{
-    if (JS_VALUE_HAS_REF_COUNT(v)) {
-        JSRefCountHeader *p = (JSRefCountHeader *)JS_VALUE_GET_PTR(v);
-        p->ref_count++;
-    }
-    return (JSValue)v;
-}
+JSValue JS_DupValue(JSContext *ctx, JSValueConst v);
 
 static inline JSValue JS_DupValueRT(JSRuntime *rt, JSValueConst v)
 {
@@ -702,10 +684,7 @@ static inline const char *JS_ToCStringLen(JSContext *ctx, size_t *plen, JSValueC
 {
     return JS_ToCStringLen2(ctx, plen, val1, 0);
 }
-static inline const char *JS_ToCString(JSContext *ctx, JSValueConst val1)
-{
-    return JS_ToCStringLen2(ctx, NULL, val1, 0);
-}
+const char *JS_ToCString(JSContext *ctx, JSValueConst val1);
 void JS_FreeCString(JSContext *ctx, const char *ptr);
 
 JSValue JS_NewObjectProtoClass(JSContext *ctx, JSValueConst proto, JSClassID class_id);

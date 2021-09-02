@@ -1,24 +1,6 @@
 #include "quickjs-libc.h"
 
-static JSContext *JS_NewCustomContext(JSRuntime *rt)
-{
-  JSContext *ctx = JS_NewContextRaw(rt);
-  if (!ctx)
-    return NULL;
-  JS_AddIntrinsicBaseObjects(ctx);
-  return ctx;
-}
-
-int main(int argc, char **argv)
-{
-  JSRuntime *rt;
-  JSContext *ctx;
-  rt = JS_NewRuntime();
-  js_std_set_worker_new_context_func(JS_NewCustomContext);
-  js_std_init_handlers(rt);
-  ctx = JS_NewCustomContext(rt);
-  JS_FreeContext(ctx);
-  JS_FreeRuntime(rt);
+int main(int argc, char **argv) {
   return 0;
 }
 
