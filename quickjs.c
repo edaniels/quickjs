@@ -54074,3 +54074,9 @@ JSValue JS_DupValue(JSContext *ctx, JSValueConst v)
     }
     return (JSValue)v;
 }
+
+JSValue JS_NewCFunction(JSContext *ctx, JSCFunction *func, const char *name,
+                                      int length)
+{
+    return JS_NewCFunction2(ctx, func, name, length, JS_CFUNC_generic, 0);
+}
