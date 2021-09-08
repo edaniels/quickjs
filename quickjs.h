@@ -563,44 +563,19 @@ static js_force_inline JSValue JS_NewFloat64(JSContext *ctx, double d)
     return v;
 }
 
-static inline JS_BOOL JS_IsNumber(JSValueConst v)
-{
-    int tag = JS_VALUE_GET_TAG(v);
-    return tag == JS_TAG_INT || JS_TAG_IS_FLOAT64(tag);
-}
+inline JS_BOOL JS_IsNumber(JSValueConst v);
 
-static inline JS_BOOL JS_IsBigInt(JSContext *ctx, JSValueConst v)
-{
-    int tag = JS_VALUE_GET_TAG(v);
-    return tag == JS_TAG_BIG_INT;
-}
+inline JS_BOOL JS_IsBigInt(JSContext *ctx, JSValueConst v);
 
-static inline JS_BOOL JS_IsBigFloat(JSValueConst v)
-{
-    int tag = JS_VALUE_GET_TAG(v);
-    return tag == JS_TAG_BIG_FLOAT;
-}
+inline JS_BOOL JS_IsBigFloat(JSValueConst v);
 
-static inline JS_BOOL JS_IsBigDecimal(JSValueConst v)
-{
-    int tag = JS_VALUE_GET_TAG(v);
-    return tag == JS_TAG_BIG_DECIMAL;
-}
+inline JS_BOOL JS_IsBigDecimal(JSValueConst v);
 
-static inline JS_BOOL JS_IsBool(JSValueConst v)
-{
-    return JS_VALUE_GET_TAG(v) == JS_TAG_BOOL;
-}
+inline JS_BOOL JS_IsBool(JSValueConst v);
 
-static inline JS_BOOL JS_IsNull(JSValueConst v)
-{
-    return JS_VALUE_GET_TAG(v) == JS_TAG_NULL;
-}
+inline JS_BOOL JS_IsNull(JSValueConst v);
 
-static inline JS_BOOL JS_IsUndefined(JSValueConst v)
-{
-    return JS_VALUE_GET_TAG(v) == JS_TAG_UNDEFINED;
-}
+inline JS_BOOL JS_IsUndefined(JSValueConst v);
 
 inline JS_BOOL JS_IsException(JSValueConst v);
 
@@ -609,20 +584,11 @@ static inline JS_BOOL JS_IsUninitialized(JSValueConst v)
     return js_unlikely(JS_VALUE_GET_TAG(v) == JS_TAG_UNINITIALIZED);
 }
 
-static inline JS_BOOL JS_IsString(JSValueConst v)
-{
-    return JS_VALUE_GET_TAG(v) == JS_TAG_STRING;
-}
+inline JS_BOOL JS_IsString(JSValueConst v);
 
-static inline JS_BOOL JS_IsSymbol(JSValueConst v)
-{
-    return JS_VALUE_GET_TAG(v) == JS_TAG_SYMBOL;
-}
+inline JS_BOOL JS_IsSymbol(JSValueConst v);
 
-static inline JS_BOOL JS_IsObject(JSValueConst v)
-{
-    return JS_VALUE_GET_TAG(v) == JS_TAG_OBJECT;
-}
+inline JS_BOOL JS_IsObject(JSValueConst v);
 
 JSValue JS_Throw(JSContext *ctx, JSValue obj);
 JSValue JS_GetException(JSContext *ctx);

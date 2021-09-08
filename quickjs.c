@@ -54080,3 +54080,58 @@ JSValue JS_NewCFunction(JSContext *ctx, JSCFunction *func, const char *name,
 {
     return JS_NewCFunction2(ctx, func, name, length, JS_CFUNC_generic, 0);
 }
+
+
+JS_BOOL JS_IsNumber(JSValueConst v)
+{
+    int tag = JS_VALUE_GET_TAG(v);
+    return tag == JS_TAG_INT || JS_TAG_IS_FLOAT64(tag);
+}
+
+JS_BOOL JS_IsBigInt(JSContext *ctx, JSValueConst v)
+{
+    int tag = JS_VALUE_GET_TAG(v);
+    return tag == JS_TAG_BIG_INT;
+}
+
+JS_BOOL JS_IsBigFloat(JSValueConst v)
+{
+    int tag = JS_VALUE_GET_TAG(v);
+    return tag == JS_TAG_BIG_FLOAT;
+}
+
+JS_BOOL JS_IsBigDecimal(JSValueConst v)
+{
+    int tag = JS_VALUE_GET_TAG(v);
+    return tag == JS_TAG_BIG_DECIMAL;
+}
+
+JS_BOOL JS_IsBool(JSValueConst v)
+{
+    return JS_VALUE_GET_TAG(v) == JS_TAG_BOOL;
+}
+
+JS_BOOL JS_IsNull(JSValueConst v)
+{
+    return JS_VALUE_GET_TAG(v) == JS_TAG_NULL;
+}
+
+JS_BOOL JS_IsUndefined(JSValueConst v)
+{
+    return JS_VALUE_GET_TAG(v) == JS_TAG_UNDEFINED;
+}
+
+JS_BOOL JS_IsString(JSValueConst v)
+{
+    return JS_VALUE_GET_TAG(v) == JS_TAG_STRING;
+}
+
+JS_BOOL JS_IsSymbol(JSValueConst v)
+{
+    return JS_VALUE_GET_TAG(v) == JS_TAG_SYMBOL;
+}
+
+JS_BOOL JS_IsObject(JSValueConst v)
+{
+    return JS_VALUE_GET_TAG(v) == JS_TAG_OBJECT;
+}

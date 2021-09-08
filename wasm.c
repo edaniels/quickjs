@@ -1,5 +1,4 @@
 #include "quickjs-libc.h"
-// #include "wasm.h"
 
 typedef JSValue hostFunction(JSContext *ctx, JSValueConst this_val, int argc, JSValueConst *argv);
 
