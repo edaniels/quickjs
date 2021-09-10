@@ -54135,3 +54135,50 @@ JS_BOOL JS_IsObject(JSValueConst v)
 {
     return JS_VALUE_GET_TAG(v) == JS_TAG_OBJECT;
 }
+
+JSValue JS_NewBool(JSContext *ctx, JS_BOOL val)
+{
+    return JS_MKVAL(JS_TAG_BOOL, (val != 0));
+}
+
+JS_BOOL JS_GetBool(JSValueConst v)
+{
+    return JS_VALUE_GET_BOOL(v);
+}
+
+JSValue JS_NewFloat64(JSContext *ctx, double d)
+{
+    JSValue v;
+    int32_t val;
+    union {
+        double d;
+        uint64_t u;
+    } u, t;
+    u.d = d;
+    val = (int32_t)d;
+    t.d = val;
+    /* -0 cannot be represented as integer, so we compare the bit
+        representation */
+    if (u.u == t.u) {
+        v = JS_MKVAL(JS_TAG_INT, val);
+    } else {
+        v = __JS_NewFloat64(ctx, d);
+    }
+    return v;
+}
+
+JSValue JS_NewInt64(JSContext *ctx, int64_t val)
+{
+    JSValue v;
+    if (val == (int32_t)val) {
+        v = JS_NewInt32(ctx, val);
+    } else {
+        v = __JS_NewFloat64(ctx, val);
+    }
+    return v;
+}
+
+double JS_GetFloat64(JSValueConst v)
+{
+    return JS_VALUE_GET_FLOAT64(v);
+}
