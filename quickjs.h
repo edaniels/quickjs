@@ -504,6 +504,7 @@ int JS_IsRegisteredClass(JSRuntime *rt, JSClassID class_id);
 
 JSValue JS_NewBool(JSContext *ctx, JS_BOOL val);
 JS_BOOL JS_GetBool(JSValueConst v);
+int64_t JS_GetInt64(JSValueConst v);
 double JS_GetFloat64(JSValueConst v);
 
 static js_force_inline JSValue JS_NewInt32(JSContext *ctx, int32_t val)
@@ -533,6 +534,8 @@ JSValue JS_NewBigInt64(JSContext *ctx, int64_t v);
 JSValue JS_NewBigUint64(JSContext *ctx, uint64_t v);
 
 JSValue JS_NewFloat64(JSContext *ctx, double d);
+
+inline JS_BOOL JS_IsInt(JSValueConst v);
 
 inline JS_BOOL JS_IsNumber(JSValueConst v);
 

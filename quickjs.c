@@ -54081,6 +54081,11 @@ JSValue JS_NewCFunction(JSContext *ctx, JSCFunction *func, const char *name,
     return JS_NewCFunction2(ctx, func, name, length, JS_CFUNC_generic, 0);
 }
 
+JS_BOOL JS_IsInt(JSValueConst v)
+{
+    int tag = JS_VALUE_GET_TAG(v);
+    return tag == JS_TAG_INT;
+}
 
 JS_BOOL JS_IsNumber(JSValueConst v)
 {
@@ -54177,6 +54182,12 @@ JSValue JS_NewInt64(JSContext *ctx, int64_t val)
     }
     return v;
 }
+
+int64_t JS_GetInt64(JSValueConst v)
+{
+    return JS_VALUE_GET_INT(v);
+}
+
 
 double JS_GetFloat64(JSValueConst v)
 {
